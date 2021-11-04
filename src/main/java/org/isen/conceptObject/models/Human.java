@@ -1,10 +1,10 @@
 package org.isen.conceptObject.models;
 
 import java.util.ArrayList;
-<<<<<<< Updated upstream
-=======
 import java.util.Random;
->>>>>>> Stashed changes
+
+import org.isen.conceptObject.models.master.MasterHuman;
+
 
 public class Human extends Good {
     public Human(int posX, int posY) {
@@ -17,18 +17,6 @@ public class Human extends Good {
 
 	@Override
 	void move() {
-<<<<<<< Updated upstream
-		ArrayList<int []> listOfCase= new ArrayList();
-		for (int cote=-1; cote<1;cote++) {
-			int[] possible = {0,0};
-			for (int cote2=-1; cote2<1;cote2++) {
-				if((posX+cote)>=0 && (posX+cote)<10 && (posY+cote2)>=0 && (posY+cote2)<10){
-					Element element= new Element(posX+cote,posY+cote2);
-					if(element.use==false) {
-						possible[0]= posX+cote;
-						possible[1]= posY+cote;
-						listOfCase.add(possible);
-=======
 		Integer[] Coord = {0,0};
 		ArrayList<Integer[]> Usable= new ArrayList<>();
 		for (int xAlent=-1; xAlent<2; xAlent++) {
@@ -39,32 +27,10 @@ public class Human extends Good {
 						Coord[0]= xAlent;
 						Coord[1]= yAlent;
 						Usable.add(Coord);
->>>>>>> Stashed changes
 					}
 				}
 			}
 		}
-<<<<<<< Updated upstream
-		int random= (int) Math.floor(Math.random()*listOfCase.size());
-		
-		this.posX= listOfCase.get(random)[0];
-		this.posY= listOfCase.get(random)[1];
-		Element element2= new Element(posX,posY);
-		element2.use=false;
-		
-	}
-
-	@Override
-	void meet(Alive alive) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	void fight(Alive alive) {
-		// TODO Auto-generated method stub
-		
-=======
 		Random random = new Random();
 		int usable;
 		usable = random.nextInt(Usable.size());
@@ -177,6 +143,5 @@ public class Human extends Good {
 				}
 			}
 		}
->>>>>>> Stashed changes
 	}
 }

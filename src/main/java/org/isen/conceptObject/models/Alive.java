@@ -21,8 +21,4 @@ public abstract class Alive extends Element{
         this.statut=true;
         this.isAlive=true;
     }
-    abstract void move();
-    abstract void meet(Alive alive);
-    abstract void fight(Alive alive);
-    abstract void Isgood();
 }

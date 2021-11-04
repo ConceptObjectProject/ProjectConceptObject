@@ -5,8 +5,4 @@ public abstract class Good extends Alive{
         super(posX,posY);
         this.goodOrBad=true;
     }
-    @Override
-	void Isgood() {
-		this.good= true;
-	}
 }
