@@ -42,7 +42,7 @@ public class Elve extends Good{
 
 	@Override
 	void meet(Alive alive) {
-		if (alive.inAlliance=true) {
+		if (alive.inAlliance==true) {
 			alive.numberMessages+= Math.ceil(this.numberMessages/2);
 			this.numberMessages+= Math.ceil(alive.numberMessages/2);
 			if (alive.numberMessages>alive.numberMaxMessages) {
@@ -52,12 +52,36 @@ public class Elve extends Good{
 				this.numberMessages=this.numberMaxMessages;
 			}
 		}
+		else {
+			if(alive.good==this.good && this.race!= alive.race) {
+				double rand = Math.random();
+				if(rand<=0.5) {
+					alive.numberMessages+= Math.ceil(this.numberMessages/2);
+					this.numberMessages+= Math.ceil(alive.numberMessages/2);
+					if (alive.numberMessages>alive.numberMaxMessages) {
+						alive.numberMessages=alive.numberMaxMessages;
+					}
+					if (this.numberMessages>this.numberMaxMessages) {
+						this.numberMessages=this.numberMaxMessages;
+					}
+					alive.inAlliance=true;
+					this.inAlliance=true;
+				}
+				else {
+					fight(alive);
+				}
+			}
+			else if(this.race!= alive.race) {
+				fight(alive);
+			}
+		}
 	}
 
 	@Override
 	void fight(Alive alive) {
 		double rand=Math.random();
 		if(alive.chancetowin>this.chancetowin) {
+			//rajouter une liste de combats effectué pour pas les refaires et penser à aller chercher la liste des éléments
 			if(rand<=0.75) {
 				this.numbersLives-=1;
 				alive.numberMessages+= Math.ceil(this.numberMessages/2);
