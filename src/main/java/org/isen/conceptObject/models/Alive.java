@@ -6,18 +6,20 @@ public abstract class Alive extends Element{
 
     protected int numbersLives;
     protected int numberMessages;
-    protected int numberMaxMessages;
+    protected int numberMessagesMax;
+    protected double chancetoWin;
+    protected boolean goodOrBad;
     protected boolean inAlliance;
-    protected boolean inLife;
-    protected boolean good;
-    protected double chancetowin;
     protected String race;
-   
-
-
+    protected ArrayList<Integer[]> forbiddenCase;
+    abstract void move();
+    abstract void meet(Alive alive);
+    abstract void fight(Alive alive1, Alive alive2);
+    
     public Alive(int posX, int posY) {
         super(posX, posY);
-        this.use=true;
+        this.statut=true;
+        this.isAlive=true;
     }
     abstract void move();
     abstract void meet(Alive alive);
