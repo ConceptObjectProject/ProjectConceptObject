@@ -124,7 +124,7 @@ public class BoardController implements Initializable {
         ObservableList<Node> childrens = grid.getChildren();
 
         for (Node node : childrens) {
-            if (grid.getRowIndex(node) == row && grid.getColumnIndex(node) == column) {
+            if (grid.getColumnIndex(node) == row && grid.getRowIndex(node) == column) {
                 result = node;
                 break;
             }
