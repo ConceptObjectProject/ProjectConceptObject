@@ -4,4 +4,6 @@ module org.isen.conceptObject {
 
     opens org.isen.conceptObject to javafx.fxml;
     exports org.isen.conceptObject;
+    exports org.isen.conceptObject.controller;
+    opens org.isen.conceptObject.controller to javafx.fxml;
 }

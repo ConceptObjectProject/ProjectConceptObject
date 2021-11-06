@@ -1,10 +1,12 @@
 package org.isen.conceptObject.models;
 
+import java.util.Random;
+
 public class Element {
     protected int posX;
     protected int posY;
     protected boolean isAlive;
-    protected boolean statut=false;
+    protected Random random = new Random();
 
     public int getPosX() {
         return posX;
@@ -24,8 +26,9 @@ public class Element {
 
     private Element(){}
 
-    public Element(int posX,int posY){
+    public Element(int posX,int posY,Boolean isAlive){
         this.posX=posX;
         this.posY=posY;
+        this.isAlive=isAlive;
     }
 }

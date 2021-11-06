@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<?import javafx.scene.layout.*?>
-
-<GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<HBox xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx"
+      fx:controller="org.isen.conceptObject.controller.BoardController">
+    <GridPane
             fx:id="grid"
-            fx:controller="org.isen.conceptObject.BoardController"
             prefHeight="400.0" prefWidth="600.0">
+    </GridPane>
+    <VBox>
+        <Button text="Move all" onAction="#moveAll"/>
+        <Button text="Move one" onAction="#moveOne"/>
+        <HBox>
+            <Text text="Orc : "></Text>
+            <Text fx:id="numberMsgOrc"></Text>
+        </HBox>
 
-</GridPane>
+        <HBox>
+            <Text text="Human : "></Text>
+            <Text fx:id="numberMsgHuman"></Text>
+        </HBox>
+
+        <HBox>
+            <Text text="Elve : "></Text>
+            <Text fx:id="numberMsgElve"></Text>
+        </HBox>
+
+        <HBox>
+            <Text text="Goblins : "></Text>
+            <Text fx:id="numberMsgGoblins"></Text>
+        </HBox>
+        <HBox>
+            <Text text="Nombre de tours restants : "></Text>
+            <Text fx:id="numberTurnKeeping"></Text>
+        </HBox>
+
+    </VBox>
+
+</HBox>
+

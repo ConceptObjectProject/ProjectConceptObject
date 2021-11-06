@@ -3,8 +3,7 @@ package org.isen.conceptObject.models;
 public class Obstacle extends Element{
 
     public Obstacle(int posX, int posY) {
-        super(posX, posY);
-        this.statut=true;
+        super(posX, posY,false);
         this.isAlive= false;
     }
 }
