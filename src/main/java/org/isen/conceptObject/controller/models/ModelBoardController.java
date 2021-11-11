@@ -1,6 +1,7 @@
 package org.isen.conceptObject.controller.models;
 
 import org.isen.conceptObject.misc.Constant;
+import org.isen.conceptObject.misc.Utils;
 import org.isen.conceptObject.models.Alive;
 import org.isen.conceptObject.models.Element;
 import org.isen.conceptObject.models.Obstacle;
@@ -14,14 +15,16 @@ import org.isen.conceptObject.models.master.MasterGoblins;
 import org.isen.conceptObject.models.master.MasterHuman;
 import org.isen.conceptObject.models.master.MasterOrc;
 
-import org.isen.conceptObject.misc.Utils;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ModelBoardController {
 
-
+    Boolean isGameFinished = false;
     int numberTurn;
+    int numberTurnAlliancesStop;
 
     List<Element> allElements = new ArrayList<>();
     List<Alive> allPawn = new ArrayList<>();
@@ -37,6 +40,7 @@ public class ModelBoardController {
 
     public ModelBoardController() {
         this.numberTurn = Constant.NUMBER_TURN;
+        this.numberTurnAlliancesStop = Utils.random.nextInt()*5+5;
         this.setAllPawn();
         this.setAllObstacles();
         this.setAllMaster();
@@ -70,7 +74,7 @@ public class ModelBoardController {
 
     }
 
-    
+
 
     private void setAllPawn() {
         for (int i = 0; i < Constant.NUMBER_PAWN_PER_TEAM; i++) {
@@ -139,9 +143,26 @@ public class ModelBoardController {
 
     }
 
+    public Boolean getGameFinished() {
+        return isGameFinished;
+    }
+
+    public void setGameFinished(Boolean gameFinished) {
+        isGameFinished = gameFinished;
+    }
+
+    public int getNumberTurnAlliancesStop() {
+        return numberTurnAlliancesStop;
+    }
+
+    public void setNumberTurnAlliancesStop(int numberTurnAlliancesStop) {
+        this.numberTurnAlliancesStop = numberTurnAlliancesStop;
+    }
+
+
     private void setAllObstacles() {
-        Random random = new Random();
-        int numberObstacle = random.nextInt(10);
+
+        int numberObstacle = Utils.random.nextInt(10);
 
         List<Pair<Integer, Integer>> allPossiblePosition = new ArrayList<>();
 
@@ -155,7 +176,7 @@ public class ModelBoardController {
 
 
         for (var i = 0; i < numberObstacle; i++) {
-            var randPosInList = random.nextInt(allPossiblePosition.size());
+            var randPosInList = Utils.random.nextInt(allPossiblePosition.size());
             Pair<Integer, Integer> pos = allPossiblePosition.get(randPosInList);
             allPossiblePosition.remove(randPosInList);
             var obstacle = new Obstacle(pos.x, pos.y);
@@ -165,11 +186,17 @@ public class ModelBoardController {
 
     public void resetAllPlayedElem() {
         this.numberTurn -= 1;
-        for (Alive pawn : allPawn) {
-            pawn.setHavePlayed(false);
+        if(this.numberTurn <=0){
+            this.isGameFinished = true;
+        }
+        else{
+            for (Alive pawn : allPawn) {
+                pawn.setHavePlayed(false);
+            }
+
+            Collections.shuffle(this.allPawn);
         }
 
-        Collections.shuffle(this.allPawn);
     }
 
     public void moveAllElements() {

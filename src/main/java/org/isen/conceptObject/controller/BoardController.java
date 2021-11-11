@@ -4,15 +4,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextBoundsType;
 import org.isen.conceptObject.App;
 import org.isen.conceptObject.controller.models.ModelBoardController;
 import org.isen.conceptObject.misc.Constant;
@@ -159,8 +156,8 @@ public class BoardController implements Initializable {
             var pane = (StackPane) getNodeByRowColumnIndex(aliveElem.getPosX(), aliveElem.getPosY());
 
             if (aliveElem.getNumbersLives() > 0) {
-                Text nbMsg = new Text("("+aliveElem.getAllMessages().size()+") ");
-                StackPane.setAlignment(nbMsg,Pos.TOP_RIGHT);
+                Text nbMsg = new Text("(" + aliveElem.getAllMessages().size() + ") ");
+                StackPane.setAlignment(nbMsg, Pos.TOP_RIGHT);
                 pane.getChildren().add(nbMsg);
                 if (aliveElem.getClass().equals(Orc.class)) {
                     var image = new Image(Objects.requireNonNull(App.class.getResource("img/orc-pawn.png")).toString());
@@ -199,7 +196,7 @@ public class BoardController implements Initializable {
     }
 
     public void moveAll(ActionEvent actionEvent) {
-        if (model.getNumberTurn() == 0) {
+        if (model.getGameFinished()) {
 
         } else {
             this.cleanAliveElem();
@@ -207,12 +204,47 @@ public class BoardController implements Initializable {
             this.drawElement();
             drawTextInfo();
         }
+    }
+
+    public void moveAllGame(ActionEvent actionEvent) {
+        this.cleanAliveElem();
+        while (!model.getGameFinished()) {
+            model.moveAllElements();
+        }
+        model.setGameFinished(true);
+        this.drawElement();
+        drawTextInfo();
+    }
+
+    public void restart(ActionEvent actionEvent) {
 
 
+        grid.getChildren().clear();
+        grid.getColumnConstraints().clear();
+        grid.getRowConstraints().clear();
+        grid.setPrefHeight(400.0);
+        grid.setPrefWidth(600.0);
+
+        MasterGoblins masterGoblins = MasterGoblins.getInstance();
+        MasterElve masterElve = MasterElve.getInstance();
+        MasterOrc masterOrc = MasterOrc.getInstance();
+        MasterHuman masterHuman = MasterHuman.getInstance();
+
+        masterGoblins.getAllMessages().clear();
+        masterElve.getAllMessages().clear();
+        masterOrc.getAllMessages().clear();
+        masterHuman.getAllMessages().clear();
+
+        model = new ModelBoardController();
+
+
+
+        createBoard();
+        drawTextInfo();
     }
 
     public void moveOne(ActionEvent actionEvent) {
-        if (model.getNumberTurn() == 0) {
+        if (model.getGameFinished()) {
 
         } else {
             this.cleanAliveElem();

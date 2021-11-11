@@ -4,6 +4,9 @@ public class Constant {
 
     private Constant(){}
 
+
+
+
     public static int MAP_SIZE_X = 12;
     public static int MAP_SIZE_Y = 12;
 
@@ -30,6 +33,7 @@ public class Constant {
     public static int[] SAFE_ZONE_ORC= new int[]{ Constant.MAP_SIZE_X - 3,  Constant.MAP_SIZE_X - 1, 0,  2};
 
     public static int NUMBER_PAWN_PER_TEAM = 7;
+
 
     public static int NUMBER_TURN = 40;
 }
