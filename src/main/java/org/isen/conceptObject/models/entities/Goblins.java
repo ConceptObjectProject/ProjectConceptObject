@@ -51,7 +51,7 @@ public class Goblins extends Bad {
     }
 
     public Goblins(int posX, int posY) {
-        super(posX, posY,5,8,0.75,"Goblins",1);
+        super(posX, posY,5,8,0.5,"Goblins",1);
     }
 
 
