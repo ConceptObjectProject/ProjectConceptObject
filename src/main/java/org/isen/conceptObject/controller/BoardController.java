@@ -4,12 +4,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextBoundsType;
 import org.isen.conceptObject.App;
 import org.isen.conceptObject.controller.models.ModelBoardController;
 import org.isen.conceptObject.misc.Constant;
@@ -86,7 +89,7 @@ public class BoardController implements Initializable {
         for (var i = 0; i < Constant.MAP_SIZE_X; i++) {
             for (var j = 0; j < Constant.MAP_SIZE_Y; j++) {
                 var pane = new StackPane();
-                pane.setAlignment(Pos.BASELINE_CENTER);
+
                 if (i < Constant.SAFE_ZONE_SIZE && j < Constant.SAFE_ZONE_SIZE) {
                     pane.getStyleClass().add("human-zone");
                 } else if (i < Constant.SAFE_ZONE_SIZE && j > Constant.MAP_SIZE_Y - Constant.SAFE_ZONE_SIZE - 1) {
@@ -112,44 +115,26 @@ public class BoardController implements Initializable {
         for (Element alive : model.getAllElements()) {
             var pane = (Pane) getNodeByRowColumnIndex(alive.getPosX(), alive.getPosY());
             if (Alive.class.isAssignableFrom(alive.getClass())) {
-                var aliveElem = (Alive) alive;
-                if (aliveElem.getNumbersLives() > 0) {
-                    if (alive.getClass().equals(Orc.class)) {
-                        var image = new Image(Objects.requireNonNull(App.class.getResource("img/orc-pawn.png")).toString());
-                        pane.getChildren().add(getImageViewMaster(image));
-                    } else if (alive.getClass().equals(Elve.class)) {
-                        var image = new Image(Objects.requireNonNull(App.class.getResource("img/elve-pawn.png")).toString());
-                        pane.getChildren().add(getImageViewMaster(image));
-                    } else if (alive.getClass().equals(Goblins.class)) {
-                        var image = new Image(Objects.requireNonNull(App.class.getResource("img/goblin-pawn.png")).toString());
-                        pane.getChildren().add(getImageViewMaster(image));
-                    } else if (alive.getClass().equals(Human.class)) {
-                        var image = new Image(Objects.requireNonNull(App.class.getResource("img/human-pawn.png")).toString());
-                        pane.getChildren().add(getImageViewMaster(image));
-                    } else if (alive.getClass().equals(MasterElve.class)) {
-                        var image = new Image(Objects.requireNonNull(App.class.getResource("img/elve-master.png")).toString());
-                        pane.getChildren().add(getImageViewMaster(image));
-                    } else if (alive.getClass().equals(MasterGoblins.class)) {
-                        var image = new Image(Objects.requireNonNull(App.class.getResource("img/goblin-master.png")).toString());
-                        pane.getChildren().add(getImageViewMaster(image));
-                    } else if (alive.getClass().equals(MasterHuman.class)) {
-                        var image = new Image(Objects.requireNonNull(App.class.getResource("img/human-master.png")).toString());
-                        pane.getChildren().add(getImageViewMaster(image));
-                    } else if (alive.getClass().equals(MasterOrc.class)) {
-                        var image = new Image(Objects.requireNonNull(App.class.getResource("img/orc-master.png")).toString());
-                        pane.getChildren().add(getImageViewMaster(image));
-                    }
-                } else {
-                    var image = new Image(Objects.requireNonNull(App.class.getResource("img/dead-pawn.png")).toString());
+                if (alive.getClass().equals(MasterElve.class)) {
+                    var image = new Image(Objects.requireNonNull(App.class.getResource("img/elve-master.png")).toString());
                     pane.getChildren().add(getImageViewMaster(image));
-
+                } else if (alive.getClass().equals(MasterGoblins.class)) {
+                    var image = new Image(Objects.requireNonNull(App.class.getResource("img/goblin-master.png")).toString());
+                    pane.getChildren().add(getImageViewMaster(image));
+                } else if (alive.getClass().equals(MasterHuman.class)) {
+                    var image = new Image(Objects.requireNonNull(App.class.getResource("img/human-master.png")).toString());
+                    pane.getChildren().add(getImageViewMaster(image));
+                } else if (alive.getClass().equals(MasterOrc.class)) {
+                    var image = new Image(Objects.requireNonNull(App.class.getResource("img/orc-master.png")).toString());
+                    pane.getChildren().add(getImageViewMaster(image));
                 }
+
             } else if (alive.getClass().equals(Obstacle.class)) {
                 var image = new Image(Objects.requireNonNull(App.class.getResource("img/rock.png")).toString());
                 pane.getChildren().add(getImageViewMaster(image));
             }
         }
-
+        drawElement();
 
     }
 
@@ -171,11 +156,16 @@ public class BoardController implements Initializable {
 
     public void drawElement() {
         for (Alive aliveElem : model.getAllPawn()) {
-            var pane = (Pane) getNodeByRowColumnIndex(aliveElem.getPosX(), aliveElem.getPosY());
+            var pane = (StackPane) getNodeByRowColumnIndex(aliveElem.getPosX(), aliveElem.getPosY());
+
             if (aliveElem.getNumbersLives() > 0) {
+                Text nbMsg = new Text("("+aliveElem.getAllMessages().size()+") ");
+                StackPane.setAlignment(nbMsg,Pos.TOP_RIGHT);
+                pane.getChildren().add(nbMsg);
                 if (aliveElem.getClass().equals(Orc.class)) {
                     var image = new Image(Objects.requireNonNull(App.class.getResource("img/orc-pawn.png")).toString());
                     pane.getChildren().add(getImageViewMaster(image));
+
                 } else if (aliveElem.getClass().equals(Elve.class)) {
                     var image = new Image(Objects.requireNonNull(App.class.getResource("img/elve-pawn.png")).toString());
                     pane.getChildren().add(getImageViewMaster(image));
@@ -209,9 +199,9 @@ public class BoardController implements Initializable {
     }
 
     public void moveAll(ActionEvent actionEvent) {
-        if(model.getNumberTurn()==0){
+        if (model.getNumberTurn() == 0) {
 
-        }else{
+        } else {
             this.cleanAliveElem();
             model.moveAllElements();
             this.drawElement();
@@ -219,13 +209,12 @@ public class BoardController implements Initializable {
         }
 
 
-
     }
 
     public void moveOne(ActionEvent actionEvent) {
-        if(model.getNumberTurn()==0){
+        if (model.getNumberTurn() == 0) {
 
-        }else{
+        } else {
             this.cleanAliveElem();
             model.moveOne();
             this.drawElement();
