@@ -152,10 +152,10 @@ public class BoardController implements Initializable {
 
     public void drawElement() {
 
-        var orcImage = new Image(Objects.requireNonNull(App.class.getResource("img/orc-pawn.png")).toString());
-        var elveImage = new Image(Objects.requireNonNull(App.class.getResource("img/elve-pawn.png")).toString());
-        var humanImage =new Image(Objects.requireNonNull(App.class.getResource("img/human-pawn.png")).toString());
-        var goblinImage = new Image(Objects.requireNonNull(App.class.getResource("img/goblin-pawn.png")).toString());
+        var orcImage = new Image(Objects.requireNonNull(App.class.getResource("img/orc.png")).toString());
+        var elveImage = new Image(Objects.requireNonNull(App.class.getResource("img/elve.png")).toString());
+        var humanImage =new Image(Objects.requireNonNull(App.class.getResource("img/human.png")).toString());
+        var goblinImage = new Image(Objects.requireNonNull(App.class.getResource("img/goblin.png")).toString());
 
         for (Alive aliveElem : model.getAllPawn()) {
             var pane = (StackPane) getNodeByRowColumnIndex(aliveElem.getPosX(), aliveElem.getPosY());
