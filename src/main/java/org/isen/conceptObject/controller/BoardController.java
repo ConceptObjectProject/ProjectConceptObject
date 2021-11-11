@@ -175,7 +175,7 @@ public class BoardController implements Initializable {
                     pane.getChildren().add(getImageViewMaster(humanImage));
                 }
             } else {
-                var image = new Image(Objects.requireNonNull(App.class.getResource("img/dead-pawn.png")).toString());
+                var image = new Image(Objects.requireNonNull(App.class.getResource("img/grave.png")).toString());
                 pane.getChildren().add(getImageViewMaster(image));
 
             }
