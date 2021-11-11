@@ -16,6 +16,8 @@
     <VBox>
         <Button text="Move all" onAction="#moveAll"/>
         <Button text="Move one" onAction="#moveOne"/>
+        <Button text="Move all game" onAction="#moveAllGame"/>
+        <Button text="Restart" onAction="#restart"/>
         <HBox>
             <Text text="Orc : "></Text>
             <Text fx:id="numberMsgOrc"></Text>

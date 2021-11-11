@@ -1,9 +1,9 @@
 package org.isen.conceptObject.models;
 
+import org.isen.conceptObject.misc.Utils;
 import org.isen.conceptObject.models.container.Pair;
 
 import java.util.ArrayList;
-import org.isen.conceptObject.misc.Utils;
 import java.util.List;
 
 public abstract class Alive extends Element {
@@ -42,7 +42,7 @@ public abstract class Alive extends Element {
             }
 
             if (!allPossiblePositions.isEmpty()) {
-                Pair<Integer, Integer> newPosition = allPossiblePositions.get(random.nextInt(allPossiblePositions.size()));
+                Pair<Integer, Integer> newPosition = allPossiblePositions.get(Utils.random.nextInt(allPossiblePositions.size()));
                 this.setPosX(newPosition.x);
                 this.setPosY(newPosition.y);
             }
@@ -95,31 +95,31 @@ public abstract class Alive extends Element {
         double maxAliveFirst = alive1.getChanceToWin();
         double maxAliveSecond = alive2.getChanceToWin();
 
-        double whichOneWon = random.nextDouble() * (maxAliveSecond + maxAliveFirst);
+        double whichOneWon = Utils.random.nextDouble() * (maxAliveSecond + maxAliveFirst);
 
 
         if (whichOneWon <= maxAliveFirst) {
 
-                for(String msg : alive2.getAllMessages()){
-                    alive1.addMessages(msg);
-                }
-                alive2.getAllMessages().clear();
-                alive2.setNumbersLives(alive2.getNumbersLives() - 1);
-
-                String messages = Utils.generateRandomString();
-                alive2.addMessages(messages);
-         } else {
-             for(String msg : alive1.getAllMessages()){
-                 alive2.addMessages(msg);
-                }
-                alive1.getAllMessages().clear();
-                alive1.setNumbersLives(alive1.getNumbersLives() - 1);
-
-                String messages = Utils.generateRandomString();
-                alive1.addMessages(messages);
-
-
+            for (String msg : alive2.getAllMessages()) {
+                alive1.addMessages(msg);
             }
+            alive2.getAllMessages().clear();
+            alive2.setNumbersLives(alive2.getNumbersLives() - 1);
+
+            String messages = Utils.generateRandomString();
+            alive2.addMessages(messages);
+        } else {
+            for (String msg : alive1.getAllMessages()) {
+                alive2.addMessages(msg);
+            }
+            alive1.getAllMessages().clear();
+            alive1.setNumbersLives(alive1.getNumbersLives() - 1);
+
+            String messages = Utils.generateRandomString();
+            alive1.addMessages(messages);
+
+
+        }
 
 
     }
