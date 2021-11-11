@@ -21,13 +21,12 @@ public abstract class Alive extends Element {
 
     protected abstract Boolean isCaseFree(Pair<Integer, Integer> pos, List<Element> allElements);
 
-    protected abstract Boolean isMasterMeet(Pair<Integer, Integer> pos,Alive elem);
-
+    protected abstract Boolean isMasterMeet(Pair<Integer, Integer> pos, Alive elem);
 
 
     public void move(List<Element> allElements) {
         this.havePlayed = true;
-        for(int i = 0 ; i < this.numberMovement;i++){
+        for (int i = 0; i < this.numberMovement; i++) {
             Pair<Integer, Integer>[] allAimedPos = new Pair[4];
             allAimedPos[0] = new Pair<>(this.getPosX(), this.getPosY() - 1);
             allAimedPos[1] = new Pair<>(this.getPosX() - 1, this.getPosY());
@@ -68,24 +67,23 @@ public abstract class Alive extends Element {
             for (Element element : allElements) {
                 if (Alive.class.isAssignableFrom(element.getClass()) && ((Alive) element).getNumbersLives() > 0) {
 
-                        if (element.getPosX() == pos.x && element.getPosY() == pos.y) {
-                            if (this.isMasterMeet(pos,(Alive)element)) {
-                                giveToYourMaster((Alive) element, this);
-                            }
-                            else if (this.isGoodOrBad()) {
-                                if (Good.class.isAssignableFrom(element.getClass())) {
-                                    this.ally(this, (Alive) element);
-                                } else {
-                                    this.fight(this, (Alive) element);
-                                }
+                    if (element.getPosX() == pos.x && element.getPosY() == pos.y) {
+                        if (this.isMasterMeet(pos, (Alive) element)) {
+                            giveToYourMaster((Alive) element, this);
+                        } else if (this.isGoodOrBad()) {
+                            if (Good.class.isAssignableFrom(element.getClass())) {
+                                this.ally(this, (Alive) element);
                             } else {
-                                if (Bad.class.isAssignableFrom(element.getClass())) {
-                                    this.ally(this, (Alive) element);
-                                } else {
-                                    this.fight(this, (Alive) element);
-                                }
+                                this.fight(this, (Alive) element);
+                            }
+                        } else {
+                            if (Bad.class.isAssignableFrom(element.getClass())) {
+                                this.ally(this, (Alive) element);
+                            } else {
+                                this.fight(this, (Alive) element);
                             }
                         }
+                    }
 
 
                 }
@@ -128,24 +126,25 @@ public abstract class Alive extends Element {
 
     public void ally(Alive alive1, Alive alive2) {
 
-        for(String msg : alive1.getAllMessages()){
+        for (String msg : alive1.getAllMessages()) {
             alive2.addMessages(msg);
         }
 
-        for(String msg : alive2.getAllMessages()){
+        for (String msg : alive2.getAllMessages()) {
             alive1.addMessages(msg);
         }
     }
 
 
-    public Boolean isMessageOwn(String message){
+    public Boolean isMessageOwn(String message) {
         return this.getAllMessages().contains(message);
     }
 
     public void giveToYourMaster(Alive master, Alive alive2) {
-        for(String msg : alive2.getAllMessages()){
+        for (String msg : alive2.getAllMessages()) {
             master.addMessages(msg);
         }
+        alive2.getAllMessages().clear();
 
     }
 
@@ -153,7 +152,7 @@ public abstract class Alive extends Element {
         super(posX, posY, true);
     }
 
-    protected Alive(int posX, int posY, int numbersLives, int numberMessagesMax, double chanceToWin, String race, Boolean goodOrBad,int numberMovement) {
+    protected Alive(int posX, int posY, int numbersLives, int numberMessagesMax, double chanceToWin, String race, Boolean goodOrBad, int numberMovement) {
         super(posX, posY, true);
         this.havePlayed = false;
         this.isAlive = true;
@@ -230,8 +229,8 @@ public abstract class Alive extends Element {
     }
 
 
-    public void addMessages(String message){
-        if(!this.isMessageOwn(message) && this.getAllMessages().size() < this.numberMessagesMax){
+    public void addMessages(String message) {
+        if (!this.isMessageOwn(message) && this.getAllMessages().size() < this.numberMessagesMax) {
             this.getAllMessages().add(message);
         }
     }
