@@ -3,6 +3,7 @@ package org.isen.conceptObject.models;
 import org.isen.conceptObject.models.container.Pair;
 
 import java.util.ArrayList;
+import org.isen.conceptObject.misc.Utils;
 import java.util.List;
 
 public abstract class Alive extends Element {
@@ -100,18 +101,27 @@ public abstract class Alive extends Element {
 
 
         if (whichOneWon <= maxAliveFirst) {
-            for(String msg : alive2.getAllMessages()){
-                alive1.addMessages(msg);
+
+                for(String msg : alive2.getAllMessages()){
+                    alive1.addMessages(msg);
+                }
+                alive2.getAllMessages().clear();
+                alive2.setNumbersLives(alive2.getNumbersLives() - 1);
+
+                String messages = Utils.generateRandomString();
+                alive2.addMessages(messages);
+         } else {
+             for(String msg : alive1.getAllMessages()){
+                 alive2.addMessages(msg);
+                }
+                alive1.getAllMessages().clear();
+                alive1.setNumbersLives(alive1.getNumbersLives() - 1);
+
+                String messages = Utils.generateRandomString();
+                alive1.addMessages(messages);
+
+
             }
-            alive2.getAllMessages().clear();
-            alive2.setNumbersLives(alive2.getNumbersLives() - 1);
-        } else {
-            for(String msg : alive1.getAllMessages()){
-                alive2.addMessages(msg);
-            }
-            alive1.getAllMessages().clear();
-            alive1.setNumbersLives(alive1.getNumbersLives() - 1);
-        }
 
 
     }

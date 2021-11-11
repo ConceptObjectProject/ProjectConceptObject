@@ -14,6 +14,8 @@ import org.isen.conceptObject.models.master.MasterGoblins;
 import org.isen.conceptObject.models.master.MasterHuman;
 import org.isen.conceptObject.models.master.MasterOrc;
 
+import org.isen.conceptObject.misc.Utils;
+
 import java.util.*;
 
 public class ModelBoardController {
@@ -68,22 +70,7 @@ public class ModelBoardController {
 
     }
 
-    protected String generateRandomString() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
-
-        Random random = new Random();
-
-        String generatedString = random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
-
-
-        return generatedString;
-    }
+    
 
     private void setAllPawn() {
         for (int i = 0; i < Constant.NUMBER_PAWN_PER_TEAM; i++) {
@@ -147,7 +134,7 @@ public class ModelBoardController {
         }
 
         for (Alive pawn : allPawn) {
-            pawn.addMessages(generateRandomString());
+            pawn.addMessages(Utils.generateRandomString());
         }
 
     }
