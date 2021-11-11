@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -31,7 +32,8 @@ public class App extends Application {
         stage.setScene(scene);
         scene.getStylesheets().add(String.valueOf(App.class.getResource("css/main.css")));
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.UNIFIED);
+        stage.getIcons().add(new Image(App.class.getResource("img/sauron-eye.png").toString()));
         stage.show();
     }
 
