@@ -78,6 +78,7 @@ public class BoardController implements Initializable {
 
 
     public void createBoard() {
+        this.drawTextInfo();
         for (var i = 0; i < Constant.MAP_SIZE_X; i++) {
             var column = new ColumnConstraints(Constant.MAP_SIZE_CELL);
             grid.getColumnConstraints().add(column);
@@ -92,7 +93,7 @@ public class BoardController implements Initializable {
 
                 if (i < Constant.SAFE_ZONE_SIZE && j < Constant.SAFE_ZONE_SIZE) {
                     pane.getStyleClass().add("human-zone");
-                } else if (i < Constant.SAFE_ZONE_SIZE && j > Constant.MAP_SIZE_Y - Constant.SAFE_ZONE_SIZE - 1) {
+                } else if (i < Constant.SAFE_ZONE_SIZE && j > Constant.MAP_SIZE_Y - Constant.SAFE_ZONE_SIZE - 1) {""
                     pane.getStyleClass().add("goblin-zone");
                 } else if (i > Constant.MAP_SIZE_X - Constant.SAFE_ZONE_SIZE - 1 && j > Constant.MAP_SIZE_Y - Constant.SAFE_ZONE_SIZE - 1) {
                     pane.getStyleClass().add("elve-zone");
