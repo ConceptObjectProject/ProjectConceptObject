@@ -12,7 +12,7 @@ public class Constant {
 
     public static int SAFE_ZONE_SIZE = 3;
 
-    public static int MAP_SIZE_CELL = 70;
+    public static int MAP_SIZE_CELL = 65;
 
     public static int MASTER_GOBLINS_POS_X = 0;
     public static int MASTER_GOBLINS_POS_Y = Constant.MAP_SIZE_Y - 1;

@@ -36,7 +36,6 @@ public class App extends Application {
         stage.setScene(scene);
         scene.getStylesheets().add(String.valueOf(App.class.getResource("css/main.css")));
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UNIFIED);
         stage.getIcons().add(new Image(App.class.getResource("img/sauron-eye.png").toString()));
         stage.show();
     }
