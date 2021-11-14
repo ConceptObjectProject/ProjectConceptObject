@@ -20,6 +20,10 @@ public class App extends Application {
 
     private static AnchorPane main;
 
+    /**
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
 

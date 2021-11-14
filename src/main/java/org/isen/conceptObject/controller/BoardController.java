@@ -49,12 +49,16 @@ public class BoardController implements Initializable {
     @FXML
     private Text numberTurnKeeping;
 
+    @FXML
+    private AnchorPane anchorPaneBoard;
+
 
     ModelBoardController model;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         model = new ModelBoardController();
+        initializeBackground();
         createBoard();
     }
 
@@ -253,5 +257,17 @@ public class BoardController implements Initializable {
             this.drawElement();
             drawTextInfo();
         }
+    }
+
+    private void initializeBackground(){
+        var image = new Image(Objects.requireNonNull(App.class.getResource("img/board-background.jpg")).toString(), true);
+        var bgImage = new BackgroundImage(
+                image,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                new BackgroundSize(1.0, 1.0, true, true, false, false)
+        );
+        anchorPaneBoard.setBackground(new Background(bgImage));
     }
 }
