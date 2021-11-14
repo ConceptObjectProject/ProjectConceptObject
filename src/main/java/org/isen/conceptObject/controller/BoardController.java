@@ -228,7 +228,7 @@ public class BoardController implements Initializable {
         gameFinished();
     }
 
-    public void restart(ActionEvent actionEvent) {
+    public void restart() {
 
 
         grid.getChildren().clear();
