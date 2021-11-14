@@ -35,5 +35,7 @@ public class Constant {
     public static int NUMBER_PAWN_PER_TEAM = 7;
 
 
+    public static int NUMBER_MSG_TO_ENDED_THE_GAME= 16;
+
     public static int NUMBER_TURN = 40;
 }

@@ -24,7 +24,6 @@ public class ModelBoardController {
 
     Boolean isGameFinished = false;
     int numberTurn;
-    int numberTurnAlliancesStop;
 
     List<Element> allElements = new ArrayList<>();
     List<Alive> allPawn = new ArrayList<>();
@@ -40,7 +39,6 @@ public class ModelBoardController {
 
     public ModelBoardController() {
         this.numberTurn = Constant.NUMBER_TURN;
-        this.numberTurnAlliancesStop = Utils.random.nextInt()*5+5;
         this.setAllPawn();
         this.setAllObstacles();
         this.setAllMaster();
@@ -151,14 +149,6 @@ public class ModelBoardController {
         isGameFinished = gameFinished;
     }
 
-    public int getNumberTurnAlliancesStop() {
-        return numberTurnAlliancesStop;
-    }
-
-    public void setNumberTurnAlliancesStop(int numberTurnAlliancesStop) {
-        this.numberTurnAlliancesStop = numberTurnAlliancesStop;
-    }
-
 
     private void setAllObstacles() {
 
@@ -196,6 +186,21 @@ public class ModelBoardController {
 
             Collections.shuffle(this.allPawn);
         }
+    }
+
+    public void checkIfMAsterHaveEnoughMsg(){
+        MasterGoblins masterGoblins = MasterGoblins.getInstance();
+        MasterElve masterElve = MasterElve.getInstance();
+        MasterOrc masterOrc = MasterOrc.getInstance();
+        MasterHuman masterHuman = MasterHuman.getInstance();
+
+        if(masterGoblins.getAllMessages().size() >= Constant.NUMBER_MSG_TO_ENDED_THE_GAME
+                || masterElve.getAllMessages().size() >= Constant.NUMBER_MSG_TO_ENDED_THE_GAME
+                || masterOrc.getAllMessages().size() >= Constant.NUMBER_MSG_TO_ENDED_THE_GAME
+                || masterHuman.getAllMessages().size() >= Constant.NUMBER_MSG_TO_ENDED_THE_GAME){
+            this.isGameFinished=true;
+        }
+
 
     }
 
@@ -206,6 +211,7 @@ public class ModelBoardController {
             if (!pawn.isHavePlayed()) {
                 if (pawn.getNumbersLives() > 0) {
                     pawn.move(allElements);
+                    checkIfMAsterHaveEnoughMsg();
                 }
             }
         }
@@ -220,6 +226,7 @@ public class ModelBoardController {
             if (!pawn.isHavePlayed()) {
                 if (pawn.getNumbersLives() > 0) {
                     pawn.move(allElements);
+                    checkIfMAsterHaveEnoughMsg();
                     return;
                 }
             }
