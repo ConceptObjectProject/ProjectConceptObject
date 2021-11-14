@@ -283,6 +283,7 @@ public class BoardController implements Initializable {
         fxmlLoader.setLocation(App.class.getResource("fxml/end.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
+        stage.setResizable(false);
         stage.getIcons().add(new Image(App.class.getResource("img/sauron-eye.png").toString()));
         stage.setTitle("Partie terminée");
         stage.setScene(scene);
