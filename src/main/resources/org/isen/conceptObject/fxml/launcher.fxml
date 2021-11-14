@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPaneLauncher" prefHeight="880.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.isen.conceptObject.controller.LauncherController">
+   <children>
+      <ImageView fx:id="titleImageView" fitHeight="81.0" fitWidth="444.0" layoutX="460.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="460.0" AnchorPane.rightAnchor="459.0" AnchorPane.topAnchor="14.0">
+         <image>
+            <Image url="@../img/title.png" />
+         </image>
+      </ImageView>
+      <JFXButton buttonType="RAISED" layoutX="634.0" layoutY="420.0" onAction="#playButtonPressed" ripplerFill="#dc840e" style="-fx-background-color: #944509;" text="Jouer" textFill="WHITE">
+         <font>
+            <Font name="Bodoni MT Black" size="22.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

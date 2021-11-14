@@ -49,12 +49,16 @@ public class BoardController implements Initializable {
     @FXML
     private Text numberTurnKeeping;
 
+    @FXML
+    private AnchorPane anchorPaneBoard;
+
 
     ModelBoardController model;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         model = new ModelBoardController();
+        initializeBackground();
         createBoard();
     }
 
@@ -152,10 +156,10 @@ public class BoardController implements Initializable {
 
     public void drawElement() {
 
-        var orcImage = new Image(Objects.requireNonNull(App.class.getResource("img/orc-pawn.png")).toString());
-        var elveImage = new Image(Objects.requireNonNull(App.class.getResource("img/elve-pawn.png")).toString());
-        var humanImage =new Image(Objects.requireNonNull(App.class.getResource("img/human-pawn.png")).toString());
-        var goblinImage = new Image(Objects.requireNonNull(App.class.getResource("img/goblin-pawn.png")).toString());
+        var orcImage = new Image(Objects.requireNonNull(App.class.getResource("img/orc.png")).toString());
+        var elveImage = new Image(Objects.requireNonNull(App.class.getResource("img/elve.png")).toString());
+        var humanImage =new Image(Objects.requireNonNull(App.class.getResource("img/human.png")).toString());
+        var goblinImage = new Image(Objects.requireNonNull(App.class.getResource("img/goblin.png")).toString());
 
         for (Alive aliveElem : model.getAllPawn()) {
             var pane = (StackPane) getNodeByRowColumnIndex(aliveElem.getPosX(), aliveElem.getPosY());
@@ -175,7 +179,7 @@ public class BoardController implements Initializable {
                     pane.getChildren().add(getImageViewMaster(humanImage));
                 }
             } else {
-                var image = new Image(Objects.requireNonNull(App.class.getResource("img/dead-pawn.png")).toString());
+                var image = new Image(Objects.requireNonNull(App.class.getResource("img/grave.png")).toString());
                 pane.getChildren().add(getImageViewMaster(image));
 
             }
@@ -253,5 +257,17 @@ public class BoardController implements Initializable {
             this.drawElement();
             drawTextInfo();
         }
+    }
+
+    private void initializeBackground(){
+        var image = new Image(Objects.requireNonNull(App.class.getResource("img/board-background.jpg")).toString(), true);
+        var bgImage = new BackgroundImage(
+                image,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                new BackgroundSize(1.0, 1.0, true, true, false, false)
+        );
+        anchorPaneBoard.setBackground(new Background(bgImage));
     }
 }
