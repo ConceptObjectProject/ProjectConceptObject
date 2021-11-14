@@ -3,13 +3,17 @@ package org.isen.conceptObject.controller;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.isen.conceptObject.App;
 import org.isen.conceptObject.controller.models.ModelBoardController;
 import org.isen.conceptObject.misc.Constant;
@@ -25,6 +29,7 @@ import org.isen.conceptObject.models.master.MasterGoblins;
 import org.isen.conceptObject.models.master.MasterHuman;
 import org.isen.conceptObject.models.master.MasterOrc;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -201,9 +206,9 @@ public class BoardController implements Initializable {
         numberTurnKeeping.setText(String.valueOf(model.getNumberTurn()));
     }
 
-    public void moveAll(ActionEvent actionEvent) {
+    public void moveAll(ActionEvent actionEvent) throws IOException {
         if (model.getGameFinished()) {
-
+            gameFinished();
         } else {
             this.cleanAliveElem();
             model.moveAllElements();
@@ -212,7 +217,7 @@ public class BoardController implements Initializable {
         }
     }
 
-    public void moveAllGame(ActionEvent actionEvent) {
+    public void moveAllGame(ActionEvent actionEvent) throws IOException {
         this.cleanAliveElem();
         while (!model.getGameFinished()) {
             model.moveAllElements();
@@ -220,6 +225,7 @@ public class BoardController implements Initializable {
         model.setGameFinished(true);
         this.drawElement();
         drawTextInfo();
+        gameFinished();
     }
 
     public void restart(ActionEvent actionEvent) {
@@ -249,9 +255,9 @@ public class BoardController implements Initializable {
         drawTextInfo();
     }
 
-    public void moveOne(ActionEvent actionEvent) {
+    public void moveOne(ActionEvent actionEvent) throws IOException {
         if (model.getGameFinished()) {
-
+            gameFinished();
         } else {
             this.cleanAliveElem();
             model.moveOne();
@@ -270,5 +276,18 @@ public class BoardController implements Initializable {
                 new BackgroundSize(1.0, 1.0, true, true, false, false)
         );
         anchorPaneBoard.setBackground(new Background(bgImage));
+    }
+
+    public void gameFinished() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(App.class.getResource("fxml/end.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(App.class.getResource("img/sauron-eye.png").toString()));
+        stage.setTitle("Partie terminée");
+        stage.setScene(scene);
+
+        stage.initModality(Modality.APPLICATION_MODAL);//Permet de bloquer la page parents lors de l'ouverture de la fenêtre param
+        stage.showAndWait();
     }
 }

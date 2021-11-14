@@ -13,7 +13,7 @@
             <Image url="@../img/title.png" />
          </image>
       </ImageView>
-      <JFXButton buttonType="RAISED" layoutX="634.0" layoutY="420.0" onAction="#playButtonPressed" ripplerFill="#dc840e" style="-fx-background-color: #944509;" text="Jouer" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="622.0" layoutY="400.0" onAction="#playButtonPressed" prefHeight="59.0" prefWidth="157.0" ripplerFill="#dc840e" style="-fx-background-color: #944509;" text="Jouer" textFill="WHITE">
          <font>
             <Font name="Bodoni MT Black" size="22.0" />
          </font>
